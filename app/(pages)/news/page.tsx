@@ -3,6 +3,7 @@ import React from "react";
 import { getAllSpreadsheetsData, SheetItem } from "@/utils/googleSheets";
 import { TitleSection } from "@/app/components/TitleSection";
 import { NewsList } from "@/app/components/NewsList";
+import UpButton from "@/app/components/UpButton";
 
 // キャッシュを無効化し、毎回のリクエストで再検証
 export const revalidate = 0;
@@ -41,6 +42,7 @@ export default async function News() {
           showViewAllButton={false} // 「全てのニュース」ボタンは不要
         />
       )}
+      <UpButton />
     </main>
   );
 }

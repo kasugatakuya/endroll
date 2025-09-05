@@ -3,6 +3,7 @@ import React from "react";
 import { getAllSpreadsheetsData, SheetItem } from "@/utils/googleSheets";
 import { TitleSection } from "@/app/components/TitleSection";
 import { MusicList } from "@/app/components/MusicList";
+import UpButton from "@/app/components/UpButton";
 
 // キャッシュを無効化し、毎回のリクエストで再検証
 export const revalidate = 0;
@@ -40,6 +41,7 @@ export default async function Music() {
           showViewAllButton={false} // 「全ての楽曲」ボタンを非表示
         />
       )}
+      <UpButton />
     </main>
   );
 }

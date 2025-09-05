@@ -1,291 +1,425 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* ルート変数の定義 */
+/* 映画エンドロール風フォントの読み込み */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+/* ルート変数の定義 - 映画のエンドロールテーマ */
 :root {
-  --background: #0e0e0e; /* 背景色（ダーク） */
-  --foreground: #f0f0f0; /* 前景色（明るい） */
-  --accent: #ff2d2d; /* アクセントカラー（赤） */
-  --secondary: #ffef00; /* セカンダリーカラー（黄色） */
-  --dark-accent: #960000; /* ダークアクセント（暗い赤） */
-  --border-color: #333; /* ボーダーの色 */
+  --endroll-bg: #000000;
+  --endroll-text: #f5f5dc;
+  --endroll-gold: #d4af37;
+  --endroll-silver: #c0c0c0;
+  --endroll-dark-gold: #b8860b;
+  --endroll-fade: rgba(245, 245, 220, 0.8);
+  --endroll-glow: rgba(212, 175, 55, 0.3);
 }
 
-/* インラインテーマの設定 */
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* 基本スタイル */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-/* ライトモード用の設定 */
-@media (prefers-color-scheme: light) {
-  :root {
-    --background: #f0f0f0; /* 背景色（明るい） */
-    --foreground: #0e0e0e; /* 前景色（ダーク） */
-    --border-color: #ccc; /* ボーダーの色（ライトモード用） */
-  }
-}
-
-/* パンクフォントの読み込み */
-@font-face {
-  font-family: "PunkFont";
-  src: url("/fonts/punk-font.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-}
-
-/* ボディ全体のスタイル */
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: "PunkFont", Arial, Helvetica, sans-serif;
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23222222' fill-opacity='0.15'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); /* パターン背景 */
-  background-attachment: fixed;
-  min-height: 100vh;
-  width: 100%;
-  position: relative;
+html, body {
+  height: 100%;
   overflow-x: hidden;
 }
 
-/* モバイルデバイス用の追加対策 */
-html,
 body {
-  background-color: var(--background);
+  background-color: var(--endroll-bg);
+  color: var(--endroll-text);
+  font-family: 'Cormorant Garamond', serif;
+  line-height: 1.6;
 }
 
-/* SVGパターンの代替背景として、フォールバック用の点線グリッド */
-@supports not (background-image: url("data:image/svg+xml,%3Csvg...")) {
-  body:before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: linear-gradient(
-        to right,
-        rgba(34, 34, 34, 0.15) 1px,
-        transparent 1px
-      ),
-      linear-gradient(to bottom, rgba(34, 34, 34, 0.15) 1px, transparent 1px);
-    background-size: 15px 15px;
-    pointer-events: none;
-    z-index: -1;
+/* エンドロールコンテナ */
+.endroll-container {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(180deg, #000000 0%, #1a1a1a 50%, #000000 100%);
+}
+
+/* エンドロール背景 */
+.endroll-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.8) 70%),
+    linear-gradient(0deg, 
+      rgba(0,0,0,1) 0%, 
+      rgba(26,26,26,0.3) 20%, 
+      rgba(26,26,26,0.3) 80%, 
+      rgba(0,0,0,1) 100%
+    );
+  z-index: -2;
+}
+
+/* エンドロール背景のフィルムグレイン効果 */
+.endroll-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    radial-gradient(circle at 20% 80%, rgba(255,255,255,0.02) 1px, transparent 1px),
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 100px 100px, 120px 120px;
+  animation: filmGrain 0.5s infinite alternate;
+  z-index: -1;
+}
+
+@keyframes filmGrain {
+  0% { opacity: 0.02; }
+  100% { opacity: 0.05; }
+}
+
+/* エンドロールラッパー - 真のシームレスループを実現 */
+.endroll-wrapper {
+  position: relative;
+  width: 100%;
+  animation: endrollSeamlessLoop 30s linear infinite;
+  z-index: 1;
+}
+
+/* エンドロールコンテンツ（個別） */
+.endroll-content-loop {
+  position: relative;
+  width: 100%;
+  padding: 0 20px;
+  /* 2つのコンテンツブロックが縦に連続で配置される */
+}
+
+/* 真のシームレスループアニメーション */
+@keyframes endrollSeamlessLoop {
+  0% {
+    transform: translateY(100vh);
+  }
+  100% {
+    transform: translateY(-50%); /* コンテンツの高さの半分だけ移動してシームレスに */
   }
 }
 
-/* ダメージテキストエフェクト */
-.text-distressed {
-  text-shadow: 2px 2px 0 var(--dark-accent), -1px -1px 0 rgba(0, 0, 0, 0.7);
-  letter-spacing: 1px;
+/* エンドロールセクション */
+.endroll-section {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 20px 0;
 }
 
-/* パンク風の斜めのボーダー */
-.angled-border {
+/* タイトルスタイル */
+.endroll-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(4rem, 8vw, 8rem);
+  font-weight: 700;
+  color: var(--endroll-gold);
+  text-shadow: 
+    0 0 30px var(--endroll-glow),
+    0 0 60px var(--endroll-glow),
+    0 0 100px rgba(212, 175, 55, 0.1);
+  letter-spacing: 0.1em;
+  margin-bottom: 30px;
+  animation: titleGlow 4s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+  0% {
+    text-shadow: 
+      0 0 30px var(--endroll-glow),
+      0 0 60px var(--endroll-glow),
+      0 0 100px rgba(212, 175, 55, 0.1);
+  }
+  100% {
+    text-shadow: 
+      0 0 40px rgba(212, 175, 55, 0.5),
+      0 0 80px rgba(212, 175, 55, 0.3),
+      0 0 120px rgba(212, 175, 55, 0.2);
+  }
+}
+
+/* サブタイトル */
+.endroll-subtitle {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--endroll-silver);
+  margin-bottom: 20px;
+  letter-spacing: 0.05em;
+}
+
+/* 説明文 */
+.endroll-description {
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  font-weight: 300;
+  color: var(--endroll-fade);
+  letter-spacing: 0.02em;
+}
+
+/* カテゴリタイトル */
+.endroll-category-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  color: var(--endroll-gold);
+  margin-bottom: 40px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
   position: relative;
 }
 
-.angled-border::after {
-  content: "";
+.endroll-category-title::after {
+  content: '';
   position: absolute;
   bottom: -10px;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--endroll-gold), transparent);
+}
+
+/* アイテムスタイル */
+.endroll-item {
+  margin-bottom: 15px;
+  line-height: 1.4;
+}
+
+.endroll-item-title {
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 500;
+  color: var(--endroll-text);
+  margin-bottom: 5px;
+  letter-spacing: 0.02em;
+}
+
+.endroll-item-desc {
+  font-size: clamp(1rem, 1.8vw, 1.3rem);
+  font-weight: 300;
+  color: var(--endroll-fade);
+  letter-spacing: 0.01em;
+}
+
+/* 最終セクション */
+.endroll-final {
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+
+/* コピーライト */
+.endroll-copyright {
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  font-weight: 400;
+  color: var(--endroll-silver);
+  margin: 40px 0;
+  letter-spacing: 0.05em;
+}
+
+/* 最終メッセージ */
+.endroll-final-message {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--endroll-gold);
+  margin-top: 60px;
+  text-shadow: 0 0 20px var(--endroll-glow);
+  animation: finalMessageGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes finalMessageGlow {
+  0% {
+    opacity: 0.8;
+    text-shadow: 0 0 20px var(--endroll-glow);
+  }
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+  }
+}
+
+/* スペーサー */
+.endroll-spacer {
+  height: 20px;
+}
+
+.endroll-spacer-large {
+  height: 40vh;
+}
+
+/* モバイル対応 */
+@media (max-width: 768px) {
+  .endroll-content {
+    padding: 0 15px;
+  }
+  
+  .endroll-section {
+    margin-bottom: 60px;
+    padding: 30px 0;
+  }
+}
+
+/* フッター */
+footer {
+  position: relative;
+  background: rgba(0, 0, 0, 0.9);
+  border-top: 1px solid rgba(212, 175, 55, 0.3);
+  padding: 16px 20px;
+  text-align: center;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer > div {
   width: 100%;
-  height: 10px;
-  background: linear-gradient(
-    135deg,
-    transparent 33%,
-    var(--accent) 33%,
-    var(--accent) 66%,
-    transparent 66%
-  );
-  background-size: 20px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-/* 破れた紙のようなエフェクト */
-.torn-edge {
-  position: relative;
-  clip-path: polygon(
-    0% 5%,
-    8% 3%,
-    15% 5%,
-    20% 2%,
-    27% 5%,
-    35% 1%,
-    40% 4%,
-    48% 2%,
-    55% 5%,
-    60% 3%,
-    67% 5%,
-    75% 2%,
-    82% 4%,
-    89% 2%,
-    95% 5%,
-    100% 3%,
-    100% 100%,
-    0% 100%
-  );
+/* Tailwindクラスが確実に適用されるよう詳細度を調整 */
+footer .mb-4 {
+  margin-bottom: 1rem !important;
 }
 
-/* パンクスタイルのリンク */
-a {
-  color: var(--accent);
+footer .gap-6 > * + * {
+  margin-left: 1.5rem !important;
+}
+
+footer .p-2 {
+  padding: 0.5rem !important;
+}
+
+footer p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  color: var(--endroll-silver);
+  letter-spacing: 0.05em;
+  text-align: center;
+  margin: 0;
+}
+
+/* ボタンスタイル */
+.btn-endroll {
+  background: linear-gradient(45deg, rgba(212, 175, 55, 0.2), rgba(212, 175, 55, 0.1));
+  border: 1px solid var(--endroll-gold);
+  color: var(--endroll-gold);
+  padding: 12px 24px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   text-decoration: none;
-  position: relative;
+  display: inline-block;
   transition: all 0.3s ease;
-}
-
-a:hover {
-  color: var(--secondary);
-  transform: skew(-5deg); /* ホバー時に傾ける */
-}
-
-/* 落書き風のヘッダー */
-header {
-  border-bottom: 2px solid var(--accent);
-  background-color: rgba(0, 0, 0, 0.8);
-  box-shadow: 0 5px 15px rgba(255, 45, 45, 0.2);
-}
-
-/* カスタムナビゲーションのスタイリング */
-nav {
-  text-transform: uppercase; /* 大文字に変換 */
-}
-
-/* ヘッダーロゴを除外するためのセレクタ修正 */
-nav a:not(.header-logo) {
   position: relative;
   overflow: hidden;
 }
 
-nav a:not(.header-logo)::after {
-  content: "";
+.btn-endroll:hover {
+  background: var(--endroll-gold);
+  color: var(--endroll-bg);
+  box-shadow: 0 0 20px var(--endroll-glow);
+}
+
+.btn-endroll::before {
+  content: '';
   position: absolute;
-  bottom: 0;
-  left: 0;
+  top: 0;
+  left: -100%;
   width: 100%;
-  height: 2px;
-  background-color: var(--accent);
-  transform: translateX(-100%);
-  transition: transform 0.3s ease;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s;
 }
 
-nav a:not(.header-logo):hover::after {
-  transform: translateX(0); /* ホバー時にアンダーラインを表示 */
+.btn-endroll:hover::before {
+  left: 100%;
 }
 
-/* パンクスタイルのボタン */
-.btn-punk {
-  background-color: var(--accent);
-  color: var(--background);
-  border: none;
-  padding: 10px 20px;
-  position: relative;
-  text-transform: uppercase;
-  font-weight: bold;
-  letter-spacing: 1px;
-  clip-path: polygon(
-    10px 0,
-    100% 0,
-    calc(100% - 10px) 100%,
-    0 100%
-  ); /* 非対称な形状 */
-  transition: all 0.3s ease;
+/* その他の共通スタイル */
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-.btn-punk:hover {
-  background-color: var(--secondary);
-  transform: translateY(-3px); /* ホバー時に少し浮き上がる */
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-}
-
-/* フッタースタイル */
-footer {
-  border-top: 2px solid var(--accent);
-  background-color: rgba(0, 0, 0, 0.7);
-  clip-path: polygon(0 30px, 100% 0, 100% 100%, 0 100%); /* 斜めの上部 */
-  padding-top: 50px !important;
-}
-
-/* アルバム/ポスター風のセクション */
 .punk-section {
-  border: 3px solid var(--border-color);
-  background-color: rgba(10, 10, 10, 0.7);
-  box-shadow: 5px 5px 0 var(--accent), 10px 10px 20px rgba(0, 0, 0, 0.3);
+  background: rgba(26, 26, 26, 0.5);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  padding: 20px;
+  margin: 20px 0;
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* TitleSectionコンポーネント用のスタイル（他のページで使用） */
+.title {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   position: relative;
+  background: linear-gradient(180deg, #000000 0%, #1a1a1a 50%, #000000 100%);
 }
 
-.punk-section::before {
-  content: "";
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  right: 10px;
-  bottom: 10px;
-  border: 1px dashed var(--accent);
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-/* バンドタイトルのスタイリング */
 .title .text-5xl,
 .title .text-4xl {
-  font-size: 8rem;
-  font-weight: 900;
-  letter-spacing: -3px;
-  text-transform: uppercase;
-  color: var(--accent);
-  transform: skew(-5deg); /* タイトルを傾ける */
-  -webkit-text-stroke: 2px black; /* テキストの輪郭 */
-  text-shadow: 3px 3px 0 #000, 6px 6px 0 var(--dark-accent);
-  line-height: 0.9;
-}
-
-/* ヘッダーロゴのスタイリング */
-.header-logo {
-  font-weight: 900;
-  letter-spacing: -1px;
-  text-transform: uppercase;
-  color: var(--accent);
-  transform: skew(-5deg); /* タイトルを傾ける */
-  -webkit-text-stroke: 1px black; /* テキストの輪郭 */
-  text-shadow: 2px 2px 0 #000, 3px 3px 0 var(--dark-accent);
-}
-
-/* モバイル用のタイトルスタイリング - サイズのみ変更 */
-.title .text-4xl {
-  font-size: 4rem; /* モバイル向けに小さいサイズを維持 */
+  font-family: 'Cinzel', serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 700;
+  color: var(--endroll-gold);
+  text-shadow: 
+    0 0 30px var(--endroll-glow),
+    0 0 60px var(--endroll-glow);
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
 }
 
 .title .text-xl,
 .title .text-base {
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  background-color: var(--secondary);
-  color: #000;
-  padding: 5px 15px;
-  display: inline-block;
-  transform: rotate(-2deg); /* 少し回転させる */
-  margin-top: 20px;
-  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.3);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.2rem, 2vw, 1.8rem);
+  color: var(--endroll-text);
+  letter-spacing: 0.05em;
 }
 
-/* モバイル用のサブタイトルのフォントサイズを調整 */
-.title .text-base {
-  font-size: 1rem; /* モバイル向けに小さいサイズを維持 */
+.btn-punk {
+  background: var(--endroll-gold);
+  color: var(--endroll-bg);
+  border: none;
+  padding: 12px 24px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-/* 背景ノイズテクスチャ用のクラス */
-.bg-noise {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEcElEQVR4nO2aTW8bVRTHfyTGIlIQFS2bClJCQsKiYkEXCP0EdAMbJCTyIiA1C8SCVYkUUj5A2JS0lFIJCaUo3aAKKbQLtpAFVNDSvFhO8DTJNE7ieOzxZB4dQ8/IY894PHbsGaeTnOQfWT73nHvPueeee2ZehhIHgK+AzwLaZ8Dx8vJWNGPAZpkIaJvAZNl5K5gJYEvUxCbwxCOgHjJjwLaoiU1gvIIaUTUNTAHvA28Brym6ZgLYEjVRK9JTzQDfABkgDeSAHIZmXgc+Bx6q94+LGpivEDEjwA9ADvhP1YjQzBHgA4IbR9rjwEdAUvWhazAHvAKMKnFEhJiVv1kkYuJB4F0MVdK1kMZ4o+/WeqAMYawhCeCkaobG6UUgiqTuPAI/3KUmosAr3QqD64CRGJJvATNd9FVXVzO2BJ8Enlfv+4HVbo3UeZJ6Dw7BQWCumyEjjigKaRR4GeNAl8d4VTfQPMrHrQIPYlwqYsBvHpN3whjCkdiWGJh14DMFVqVQbVU8eaI3m9KHlqf9LGpkzGPyeeVADjjVK5faYaodzteBPeAIcAzjlmoEpPPKaB+4oIzmeWUsjKbCxMG23O+Sz8B6CJPuYxQS7YjKKpuLtf5d4EfgEBD3GBhVDh4Bbqt+riq6XwUOVpKoC/YWOD5YwbGQFSbBXvACvI7xOvDrzw3bZiKGK85znI6PswrsYSjmnjLtFNivOh5oFJrZxzhTqPcCgCbwe7E2nL4nMRJe3UqFmGVboW70F0VXJ2ZZ9vQn8rjocOC5UdvCk9oWnjAZ84dH3w3fbwz46eNiwydeJhvjmK2WVWqvtwq9Jh7+4qBQaPTFG1b5JJ0yZkZsaLBUZ1Vqd1SkfKPJ86nDRURMBFQ73ZItHLjXoC49v9V0rMM7TTKTX2V9OsHtWKLYAZ7qN4o9rmP97yS4LM+32Zy4wqPUUXaOTRaFXCcONGhZv5m+u8bM4lWWz1yhFo+TjScDLRFIkIvICpYV5wqp5Rf5Z/psMW9s54oFsOfrTmOWZZUKQpZl01ja5J+XX+TWWIF8LMHtkxeLwtvTxeOulkDxuQGdY4F28iD/njrLrUgcgMerPwOnHiQUyA+vGLgImTHOPV+YgV8WJkCIiwiXYosWttGkiIieCxqoiHCKCgn8q1rQ/UO3+DxYIvJPLpfx6JZDzJ/xWA+W5WNHGFfJKbZSVQs70i98C7mII/d9JjHWQUZsgZ+h+EUMsYAIYPn+3qUQQYg4NpWrGw1VXt5oXsR2LUAtiwhCxNazriRb1oPHn7yJf3o5qcF5lRcihIiTGhrmFnpCiBUoJALy12c9+BrUQlVLzd83vWdVK+RCTChE/L/Sz5DlU9WChUi0OsqlCYnf9KNTYmLOzZ5uxbyHHQlCYk5PQLUJnRGJt+kLmQiBiHe0sESIRJy3+Bt0TsR74KlrUK6qEYRDgJDWW4XQQ61qwHT/g9SThqA5BTDZ/SD1pHGQmNQfpD5KHybMDOqDNMAhHuD4Pwj7hP8BZwY+JY9QbZoAAAAASUVORK5CYII=");
-  pointer-events: none;
-  z-index: -1;
-  opacity: 0.05;
+.btn-punk:hover {
+  background: var(--endroll-dark-gold);
+  box-shadow: 0 0 20px var(--endroll-glow);
+}
+
+/* テキスト装飾 */
+.text-distressed {
+  text-shadow: 0 0 10px var(--endroll-glow);
 }

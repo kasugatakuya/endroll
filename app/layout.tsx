@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
-import UpButton from "@/app/components/UpButton";
 
 // フォントの設定
 const inter = Inter({
@@ -13,27 +12,27 @@ const inter = Inter({
 
 // サイトの基本情報を定数として定義
 const SITE_CONFIG = {
-  title: "MONKEY | パンクロックバンド",
+  title: "Endroll | ロックバンド",
   description:
-    "パンクロックバンドMONKEYの公式サイトです。MONKEYに関する、ニュース、ライブスケジュール、楽曲、メンバー紹介、グッズなどご覧いただけます。",
+    "ロックバンドEndrollの公式サイトです。Endrollに関する、ニュース、ライブスケジュール、楽曲、メンバー紹介、グッズなどご覧いただけます。",
   url: "https://monkey-mauve-alpha.vercel.app",
-  siteName: "MONKEY",
+  siteName: "Endroll",
   keywords: [
-    "MONKEY",
-    "monkey",
-    "monkeyband",
-    "monkey_band",
-    "monkey_band_official",
-    "monkey_official",
-    "monkey_official_website",
-    "monkey_website",
-    "monkey_homepage",
-    "モンキー",
-    "モンキー公式サイト",
+    "Endroll",
+    "endroll",
+    "endrollband",
+    "endroll_band",
+    "endroll_band_official",
+    "endroll_official",
+    "endroll_official_website",
+    "endroll_website",
+    "endroll_homepage",
+    "エンドロール",
+    "エンドロール公式サイト",
     "バンド",
     "ロック",
-    "パンク",
-    "パンクロック",
+    "邦ロック",
+    "JPOP",
     "ロックバンド",
     "曲",
     "LIVE",
@@ -45,6 +44,8 @@ const SITE_CONFIG = {
     "アルバム",
     "ホームページ",
     "音楽バンド",
+    "映画",
+    "エンドロール",
   ],
   googleVerification: "r4vs5K6kyRpFbT2eQ3xlFxlQbUmRrk_8z6irkNv4HmM",
 } as const;
@@ -62,6 +63,13 @@ export const metadata: Metadata = {
 
   // 基本URL設定
   metadataBase: new URL(SITE_CONFIG.url),
+
+  // アイコン設定
+  icons: {
+    icon: '/endroll.png',
+    shortcut: '/endroll.png',
+    apple: '/endroll.png',
+  },
 
   // Open Graph設定
   openGraph: {
@@ -112,16 +120,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="ja">
       <head>
-        <meta name="application-name" content="MONKEY | パンクロックバンド" />
-        <meta name="apple-mobile-web-app-title" content="MONKEY" />
+        <meta name="application-name" content="Endroll | ロックバンド" />
+        <meta name="apple-mobile-web-app-title" content="Endroll" />
       </head>
       <body className={inter.className}>
         <Header />
 
-        <main className="pt-16 md:pt-24">{children}</main>
-
-        <UpButton />
-        <Footer />
+        {children}
       </body>
     </html>
   );

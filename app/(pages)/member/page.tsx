@@ -3,6 +3,7 @@ import React from "react";
 import { getAllSpreadsheetsData, SheetItem } from "@/utils/googleSheets";
 import { MemberList } from "@/app/components/MemberList";
 import { TitleSection } from "@/app/components/TitleSection";
+import UpButton from "@/app/components/UpButton";
 
 // キャッシュを無効化し、毎回のリクエストで再検証
 export const revalidate = 0;
@@ -35,6 +36,7 @@ export default async function Member() {
 
       {/* メンバー紹介セクション - コンポーネント化 */}
       <MemberList memberData={memberData} title="バンドメンバー" />
+      <UpButton />
     </main>
   );
 }

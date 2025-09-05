@@ -1,64 +1,130 @@
 "use client";
 
 import Link from "next/link";
-import MobileMenu from "@/app/components/MobileMenu";
+import { useState, useEffect } from "react";
 
 export default function Header() {
-  return (
-    <header className="fixed top-0 w-full z-50">
-      <nav
-        className="flex items-center justify-between px-6 py-3 lg:px-20 lg:py-4"
-        aria-label="Global"
-      >
-        {/* バンド名（ロゴ）をヘッダー左側に配置 */}
-        <div className="flex-shrink-0">
-          <Link href="/" className="header-logo font-bold text-2xl lg:text-3xl">
-            MONKEY
-          </Link>
-        </div>
-        {/* ナビゲーションメニューは右側に配置 */}
-        <div className="hidden md:flex text-distressed">
-          <Link href="/news" className="font-bold transform hover:rotate-1">
-            <div className="lg:text-xl text-accent"> NEWS</div>
-            <div className="text-xs">ニュース</div>
-          </Link>
-          <Link
-            href="/live"
-            className="px-4 font-bold lg:px-12 transform hover:rotate-1"
-          >
-            <div className="lg:text-xl text-accent"> LIVE</div>
-            <div className="text-xs">ライブ情報</div>
-          </Link>
-          <Link href="/music" className="font-bold transform hover:rotate-1">
-            <div className="lg:text-xl text-accent"> MUSIC</div>
-            <div className="text-xs">楽曲</div>
-          </Link>
-          <Link
-            href="/member"
-            className="px-4 font-bold lg:px-12 transform hover:rotate-1"
-          >
-            <div className="lg:text-xl text-accent"> MEMBER</div>
-            <div className="text-xs">バンドメンバー</div>
-          </Link>
-          {/* <Link
-            href="/merch"
-            className="font-bold transform hover:rotate-1"
-          >
-            <div className="lg:text-xl text-accent"> MERCH</div>
-            <div className="text-xs">グッズ</div>
-          </Link> */}
-          {/* <Link
-            href="/merch"
-            className="font-bold transform hover:rotate-1"
-          >
-            <div className="lg:text-xl text-accent"> CONTACT</div>
-            <div className="text-xs">問い合わせ</div>
-          </Link> */}
-        </div>
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-        {/* Mobile menu component */}
-        <MobileMenu />
-      </nav>
-    </header>
+  // モバイルメニューが開いている時にスクロールを防ぐ
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    // クリーンアップ
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMenuOpen]);
+
+  return (
+    <>
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-md border-b border-endroll-gold/30">
+        <nav className="flex items-center justify-between px-4 py-3 max-w-7xl mx-auto">
+          <div>
+            <Link
+              href="/"
+              className="text-endroll-gold font-cinzel text-2xl md:text-3xl font-semibold tracking-wider"
+            >
+              Endroll
+            </Link>
+          </div>
+
+          {/* デスクトップナビゲーション */}
+          <div className="hidden md:flex items-center space-x-8">
+            <Link
+              href="/news"
+              className="text-endroll-text font-cormorant text-base uppercase tracking-wider hover:text-endroll-gold transition-colors duration-300"
+            >
+              News
+            </Link>
+            <Link
+              href="/live"
+              className="text-endroll-text font-cormorant text-base uppercase tracking-wider hover:text-endroll-gold transition-colors duration-300"
+            >
+              Live
+            </Link>
+            <Link
+              href="/music"
+              className="text-endroll-text font-cormorant text-base uppercase tracking-wider hover:text-endroll-gold transition-colors duration-300"
+            >
+              Music
+            </Link>
+            <Link
+              href="/member"
+              className="text-endroll-text font-cormorant text-base uppercase tracking-wider hover:text-endroll-gold transition-colors duration-300"
+            >
+              Cast
+            </Link>
+          </div>
+
+          {/* モバイルメニューボタン */}
+          <button
+            className="md:hidden bg-transparent border border-endroll-gold text-endroll-gold px-4 py-2 text-sm font-cormorant uppercase tracking-wider hover:bg-endroll-gold hover:text-black transition-colors duration-300"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-expanded={isMenuOpen}
+            aria-label="Toggle navigation menu"
+          >
+            {isMenuOpen ? "Close" : "Menu"}
+          </button>
+        </nav>
+      </header>
+
+      {/* モバイルメニューオーバーレイ */}
+      {isMenuOpen && (
+        <div className="fixed inset-0 z-40 md:hidden">
+          {/* 背景オーバーレイ */}
+          <div
+            className="absolute inset-0 bg-black/95 backdrop-blur-sm"
+            onClick={() => setIsMenuOpen(false)}
+          />
+
+          {/* メニューコンテンツ */}
+          <div className="relative z-50 flex flex-col items-center justify-center min-h-screen px-6">
+            <div className="flex flex-col items-center space-y-8">
+              <Link
+                href="/news"
+                className="text-2xl font-light font-cinzel text-endroll-text hover:text-endroll-gold transition-colors duration-300"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                News
+              </Link>
+              <Link
+                href="/live"
+                className="text-2xl font-light font-cinzel text-endroll-text hover:text-endroll-gold transition-colors duration-300"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Live
+              </Link>
+              <Link
+                href="/music"
+                className="text-2xl font-light font-cinzel text-endroll-text hover:text-endroll-gold transition-colors duration-300"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Music
+              </Link>
+              <Link
+                href="/member"
+                className="text-2xl font-light font-cinzel text-endroll-text hover:text-endroll-gold transition-colors duration-300"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Cast
+              </Link>
+
+              {/* 閉じるボタン */}
+              <button
+                onClick={() => setIsMenuOpen(false)}
+                className="mt-12 px-8 py-3 border border-endroll-gold text-endroll-gold font-cormorant text-sm uppercase tracking-wider hover:bg-endroll-gold hover:text-black transition-colors duration-300"
+              >
+                Close Menu
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
