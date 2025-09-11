@@ -1,23 +1,24 @@
-import React from "react";
-import { getAllSpreadsheetsData, SheetItem } from "@/utils/googleSheets";
-import Footer from "@/app/components/Footer";
+"use client";
 
-// キャッシュを無効化し、毎回のリクエストで再検証
-export const revalidate = 0;
+import React, { useEffect, useState } from "react";
 
-// サーバーコンポーネントでのデータ取得
-async function getSheetData() {
-  try {
-    return await getAllSpreadsheetsData();
-  } catch (error) {
-    console.error("データ取得エラー:", error);
-    return [] as SheetItem[];
-  }
-}
+export default function Top() {
+  const [allData, setAllData] = useState<any[]>([]);
 
-export default async function Top() {
-  // 全てのスプレッドシートのデータを取得
-  const allData = await getSheetData();
+  // データ取得
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await fetch("/api/sheets");
+        const result = await response.json();
+        setAllData(result.success ? result.data : []);
+      } catch (error) {
+        console.error("データ取得エラー:", error);
+        setAllData([]);
+      }
+    }
+    fetchData();
+  }, []);
 
   // データをタイプで分類
   const newsData = allData
@@ -120,28 +121,23 @@ export default async function Top() {
 
       {/* エンドロールが終わった後の余白 */}
       <div className="endroll-spacer-large"></div>
+
+      {/* 次のループまでの間隔を短縮 */}
+      <div style={{ height: "80vh" }}></div>
     </>
   );
 
   return (
-    <>
-      <div className="endroll-container">
-        {/* 映画のエンドロール風背景 */}
-        <div className="endroll-background"></div>
+    <div className="endroll-container">
+      {/* 映画のエンドロール風背景 */}
+      <div className="endroll-background"></div>
 
-        {/* メインコンテンツ - 2つの同じコンテンツを連続で配置してシームレスループを実現 */}
-        <div className="endroll-wrapper">
-          <div className="endroll-content-loop">
-            <EndrollContent />
-          </div>
-          <div className="endroll-content-loop">
-            <EndrollContent />
-          </div>
+      {/* メインコンテンツ - 無限ループエンドロール */}
+      <div className="endroll-wrapper">
+        <div className="endroll-content-loop">
+          <EndrollContent />
         </div>
       </div>
-
-      {/* フッターを別途配置して距離を一定に保つ */}
-      <Footer />
-    </>
+    </div>
   );
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/app/components/Header";
+import Footer from "@/app/components/Footer";
 
 // フォントの設定
 const inter = Inter({
@@ -123,9 +124,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <meta name="apple-mobile-web-app-title" content="Endroll" />
       </head>
       <body className={inter.className}>
-        <Header />
-
-        {children}
+        <div className="pb-20">
+          <Header />
+          {children}
+          <Footer />
+        </div>
       </body>
     </html>
   );
