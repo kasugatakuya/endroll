@@ -72,62 +72,6 @@ export const MusicList: React.FC<MusicListProps> = ({
           )}
         </section>
       )}
-
-      {/* 最新アルバム */}
-      <section className="punk-section p-8 mb-20">
-        <h2 className="text-3xl font-bold text-distressed text-accent mb-6">
-          最新アルバム
-        </h2>
-        <div className="md:flex items-center">
-          <div className="md:w-1/2 p-4">
-            <div className="aspect-square bg-black relative">
-              {/* アルバムアートワークのプレースホルダー */}
-              <div className="absolute inset-0 border-2 border-accent transform rotate-2"></div>
-              <div className="absolute inset-0 bg-black flex items-center justify-center transform -rotate-1">
-                <span className="text-4xl font-bold text-distressed">
-                  近日公開予定
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="md:w-1/2 p-4">
-            <h3 className="text-2xl font-bold text-secondary mb-2">
-              タイトル未定
-            </h3>
-            <ul className="space-y-2 mb-6">
-              <li className="flex items-center">
-                <span className="text-accent">01. MONKEYのテーマ(仮)</span>
-              </li>
-              <li className="flex items-center">
-                <span className="text-accent">
-                  02. パンクイズノットデッド(仮)
-                </span>
-              </li>
-              <li className="flex items-center">
-                <span className="text-accent">03. 役人ファック(仮)</span>
-              </li>
-              <li className="flex items-center">
-                <span className="text-accent">04. はじまりの詩(仮)</span>
-              </li>
-              <li className="flex items-center">
-                <span className="text-accent">05. あっちいけ(仮)</span>
-              </li>
-              <li className="flex items-center">
-                <span className="text-accent">06. 激(仮)</span>
-              </li>
-              <li className="flex items-center">
-                <span className="text-accent">07. 壊れた(仮)</span>
-              </li>
-              <li className="flex items-center">
-                <span className="text-accent">08. 名無しのバラード(仮)</span>
-              </li>
-              <li className="flex items-center">
-                <span className="text-accent">09. 地団駄(仮)</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </section>
     </>
   );
 };

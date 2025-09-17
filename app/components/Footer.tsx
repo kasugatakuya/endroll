@@ -16,7 +16,7 @@ export default function Footer() {
       <div>
         <div className="flex justify-center items-center gap-6">
           <Link
-            href="https://x.com/monkey39714"
+            href="#"
             className="opacity-70 hover:opacity-100 transition-opacity p-2"
             target="_blank"
             rel="noopener noreferrer"
@@ -71,7 +71,7 @@ export default function Footer() {
           </Link>
         </div>
         <div className="text-center">
-          <p className="text-sm opacity-80">© Endroll 2024 - {currentYear}</p>
+          <p className="text-sm opacity-80">© Endroll 2025 - {currentYear}</p>
         </div>
       </div>
     </footer>
