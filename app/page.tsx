@@ -2,8 +2,19 @@
 
 import React, { useEffect, useState } from "react";
 
+interface DataItem {
+  _sheetType: string;
+  title?: string;
+  name?: string;
+  date?: string;
+  description?: string;
+  venue?: string;
+  instrument?: string;
+  role?: string;
+}
+
 export default function Top() {
-  const [allData, setAllData] = useState<any[]>([]);
+  const [allData, setAllData] = useState<DataItem[]>([]);
 
   // データ取得
   useEffect(() => {

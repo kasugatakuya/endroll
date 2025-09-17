@@ -288,9 +288,9 @@ body {
 /* フッター */
 footer {
   position: relative;
-  background: rgba(0, 0, 0, 0.9);
+  background: black;
   border-top: 1px solid rgba(212, 175, 55, 0.3);
-  padding: 16px 20px;
+  padding: 0px 20px 8px 20px;
   text-align: center;
   z-index: 10;
   display: flex;

@@ -12,50 +12,62 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="fixed bottom-0 left-0 right-0 bg-gray-900 text-white py-4 z-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-center items-center gap-6 mb-4">
+    <footer className="fixed bottom-0 left-0 right-0 text-white z-10">
+      <div>
+        <div className="flex justify-center items-center gap-6">
           <Link
             href="https://x.com/monkey39714"
             className="opacity-70 hover:opacity-100 transition-opacity p-2"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <Image src="/x-icon.webp" width={24} height={24} alt="X" />
+            <div className="w-12 h-12 relative">
+              <Image
+                src="/x-icon.webp"
+                fill
+                alt="X"
+                className="object-contain"
+              />
+            </div>
           </Link>
           <Link
             href="#"
             className="opacity-70 hover:opacity-100 transition-opacity p-2"
           >
-            <Image
-              src="/instagram-img.webp"
-              width={24}
-              height={24}
-              alt="Instagram"
-            />
+            <div className="w-6 h-6 relative">
+              <Image
+                src="/instagram-img.webp"
+                fill
+                alt="Instagram"
+                className="object-contain"
+              />
+            </div>
           </Link>
           <Link
             href="#"
             className="opacity-70 hover:opacity-100 transition-opacity p-2"
           >
-            <Image
-              src="/facebook-icon.webp"
-              width={24}
-              height={24}
-              alt="Facebook"
-            />
+            <div className="w-9 h-9 relative">
+              <Image
+                src="/facebook-icon.webp"
+                fill
+                alt="Facebook"
+                className="object-contain"
+              />
+            </div>
           </Link>
           <Link
             href="#"
             className="opacity-70 hover:opacity-100 transition-opacity p-2"
           >
-            <Image
-              src="/youtube.webp"
-              width={24}
-              height={24}
-              alt="YouTube"
-              className="rounded"
-            />
+            <div className="w-7 h-7 relative">
+              <Image
+                src="/youtube.webp"
+                fill
+                alt="YouTube"
+                className="object-contain rounded"
+              />
+            </div>
           </Link>
         </div>
         <div className="text-center">
