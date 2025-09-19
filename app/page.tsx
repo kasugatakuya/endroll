@@ -51,7 +51,7 @@ export default function Top() {
         const singleCycleHeight = contentHeight / 2;
 
         // アニメーション時間を高さに基づいて計算（ピクセル/秒の速度を一定に）
-        const pixelsPerSecond = 200; // スクロール速度
+        const pixelsPerSecond = 250; // スクロール速度
         const duration = singleCycleHeight / pixelsPerSecond;
 
         // 既存のスタイルを削除
