@@ -23,19 +23,19 @@ interface LiveItem extends BaseItem {
   場所: string;
   チケット代: string;
   販売状況: string;
-  説明?: string;
+  説明: string;
 }
 
 interface MemberItem extends BaseItem {
   _sheetType: "member";
   名前: string;
   担当: string;
-  説明?: string;
-  使用機材?: string;
-  好きなアーティスト?: string;
-  好きな食べ物?: string;
-  趣味?: string;
-  好きな場所?: string;
+  説明: string;
+  使用機材: string;
+  好きなアーティスト: string;
+  好きな食べ物: string;
+  趣味: string;
+  好きな場所: string;
   画像?: string;
 }
 
