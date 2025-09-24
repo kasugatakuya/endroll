@@ -29,13 +29,12 @@ export default async function Member() {
     <main className="mx-5 md:mx-20">
       {/* タイトルセクション */}
       <TitleSection
-        title="MEMBER"
+        title="CAST"
         subtitle="バンドメンバー"
         backToTopButton={true} // TOPに戻るボタンを表示
       />
-
       {/* メンバー紹介セクション - コンポーネント化 */}
-      <MemberList memberData={memberData} title="バンドメンバー" />
+      <MemberList memberData={memberData} title="CAST" />
       <UpButton />
     </main>
   );

@@ -36,36 +36,57 @@ export const NewsList: React.FC<NewsListProps> = ({
     : sortedNewsData;
 
   return (
-    <section id="news" className="p-8 mb-12 scroll-mt-16">
-      <h2 className="text-3xl font-bold mb-6 border-b-2 border-accent pb-2">
-        ニュース
-      </h2>
+    <section id="news" className="cinema-theater-section mb-12">
+      {/* <div className="cinema-stage">
+        <h2 className="cinema-stage-title">NEWS</h2>
+        <div className="cinema-curtain-left"></div>
+        <div className="cinema-curtain-right"></div>
+      </div> */}
 
-      {displayNewsData.map((row, rowIndex) => (
-        <article className="mb-12 border-l-4 border-accent pl-4" key={rowIndex}>
-          <div className="flex items-center mb-3">
-            <time className="text-sm opacity-80">{row["日付"]}</time>
-          </div>
-          <h3 className="text-2xl font-bold mb-2">{row["タイトル"]}</h3>
-          <p className="mb-4 whitespace-pre-line">{row["内容"]}</p>
-          {row["リンクURL"] && typeof row["リンクURL"] === "string" && (
-            <Link
-              href={row["リンクURL"]}
-              className="text-accent hover:underline"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {typeof row["リンクテキスト"] === "string"
-                ? row["リンクテキスト"]
-                : "詳細を見る"}
-            </Link>
-          )}
-        </article>
-      ))}
+      <div className="cinema-seating-area cinema-news-seating-full">
+        {displayNewsData.map((row, rowIndex) => (
+          <article className="cinema-seat cinema-news-seat-full" key={rowIndex}>
+            <div className="cinema-seat-inner">
+              <div className="cinema-seat-back">
+                <div className="cinema-seat-number">{row["日付"]}</div>
+              </div>
+              <div className="cinema-seat-content cinema-news-content">
+                <h3 className="text-2xl font-bold mb-3 cinema-title">
+                  {row["タイトル"]}
+                </h3>
+                <p className="mb-4 whitespace-pre-line cinema-description">
+                  {row["内容"]}
+                </p>
+                {row["リンクURL"] && typeof row["リンクURL"] === "string" && (
+                  <Link
+                    href={row["リンクURL"]}
+                    className="cinema-news-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span className="cinema-link-icon">▶</span>
+                    {typeof row["リンクテキスト"] === "string"
+                      ? row["リンクテキスト"]
+                      : "詳細を見る"}
+                  </Link>
+                )}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div className="cinema-floor-lights">
+        <div className="cinema-floor-light"></div>
+        <div className="cinema-floor-light"></div>
+        <div className="cinema-floor-light"></div>
+        <div className="cinema-floor-light"></div>
+        <div className="cinema-floor-light"></div>
+      </div>
 
       {showViewAllButton && (
-        <div className="text-center">
-          <Link href="/news" className="btn-punk">
+        <div className="text-center mt-8">
+          <Link href="/news" className="btn-endroll">
             全てのニュース
           </Link>
         </div>
