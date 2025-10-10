@@ -15,7 +15,7 @@ const SITE_CONFIG = {
   title: "Endroll | ロックバンド",
   description:
     "ロックバンドEndrollの公式サイトです。Endrollに関する、ニュース、ライブスケジュール、楽曲、メンバー紹介、グッズなどご覧いただけます。",
-  url: "https://monkey-mauve-alpha.vercel.app",
+  url: "https://endroll.vercel.app",
   siteName: "Endroll",
   keywords: [
     "Endroll",
@@ -71,26 +71,41 @@ export const metadata: Metadata = {
     apple: '/endroll.png',
   },
 
-  // Open Graph設定
+  // Open Graph設定（強化版）
   openGraph: {
     title: SITE_CONFIG.title,
     description: SITE_CONFIG.description,
     type: "website",
     url: SITE_CONFIG.url,
-    siteName: SITE_CONFIG.title, // titleと統一
+    siteName: SITE_CONFIG.title,
     locale: "ja_JP",
+    images: [
+      {
+        url: `${SITE_CONFIG.url}/endroll.png`,
+        width: 1200,
+        height: 630,
+        alt: "Endroll ロックバンド",
+      },
+    ],
   },
 
-  // Twitter Cards設定
+  // Twitter Cards設定（強化版）
   twitter: {
     card: "summary_large_image",
     title: SITE_CONFIG.title,
     description: SITE_CONFIG.description,
+    site: "@endroll_band",
+    creator: "@endroll_band",
+    images: [`${SITE_CONFIG.url}/endroll.png`],
   },
 
   // 正規URL設定
   alternates: {
     canonical: SITE_CONFIG.url,
+    languages: {
+      "ja": SITE_CONFIG.url,
+      "x-default": SITE_CONFIG.url,
+    },
   },
 
   // SEO設定
@@ -110,6 +125,17 @@ export const metadata: Metadata = {
   verification: {
     google: SITE_CONFIG.googleVerification,
   },
+
+  // その他のメタタグ
+  authors: [{ name: "Endroll" }],
+  creator: "Endroll",
+  publisher: "Endroll",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  category: "music",
 };
 
 interface RootLayoutProps {
@@ -122,6 +148,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <head>
         <meta name="application-name" content="Endroll | ロックバンド" />
         <meta name="apple-mobile-web-app-title" content="Endroll" />
+        <link rel="canonical" href={SITE_CONFIG.url} />
+        <meta name="theme-color" content="#000000" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
       </head>
       <body className={inter.className}>
         <div className="pb-20">
@@ -129,6 +159,54 @@ export default function RootLayout({ children }: RootLayoutProps) {
           {children}
           <Footer />
         </div>
+        
+        {/* 構造化データ (JSON-LD) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "MusicGroup",
+              "name": "Endroll",
+              "alternateName": "エンドロール",
+              "url": "https://endroll.vercel.app",
+              "genre": ["ロック", "邦ロック", "JPOP", "Rock"],
+              "description": "ロックバンドEndrollの公式サイトです。",
+              "foundingDate": "2020",
+              "foundingLocation": {
+                "@type": "Place",
+                "name": "日本"
+              },
+              "member": [
+                {
+                  "@type": "Person",
+                  "name": "ギタリスト",
+                  "roleName": "ギター"
+                },
+                {
+                  "@type": "Person",
+                  "name": "ベーシスト",
+                  "roleName": "ベース"
+                },
+                {
+                  "@type": "Person",
+                  "name": "ドラマー",
+                  "roleName": "ドラム"
+                }
+              ],
+              "sameAs": [
+                "https://twitter.com/endroll_band",
+                "https://www.instagram.com/endroll_band",
+                "https://www.youtube.com/endroll_band",
+                "https://www.facebook.com/endroll_band"
+              ],
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://endroll.vercel.app/endroll.png"
+              }
+            }),
+          }}
+        />
       </body>
     </html>
   );
