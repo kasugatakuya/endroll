@@ -66,9 +66,9 @@ export const metadata: Metadata = {
 
   // アイコン設定
   icons: {
-    icon: '/endroll.png',
-    shortcut: '/endroll.png',
-    apple: '/endroll.png',
+    icon: "/endroll.png",
+    shortcut: "/endroll.png",
+    apple: "/endroll.png",
   },
 
   // Open Graph設定（強化版）
@@ -103,7 +103,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: SITE_CONFIG.url,
     languages: {
-      "ja": SITE_CONFIG.url,
+      ja: SITE_CONFIG.url,
       "x-default": SITE_CONFIG.url,
     },
   },
@@ -152,6 +152,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <meta name="theme-color" content="#000000" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+        {/* ファビコン設定 - Google検索対応 */}
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" href="/endroll.png" type="image/png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" href="/endroll.png" />
+        <link rel="apple-touch-icon-precomposed" href="/endroll.png" />
       </head>
       <body className={inter.className}>
         <div className="pb-20">
@@ -159,7 +166,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           {children}
           <Footer />
         </div>
-        
+
         {/* 構造化データ (JSON-LD) */}
         <script
           type="application/ld+json"
@@ -167,43 +174,43 @@ export default function RootLayout({ children }: RootLayoutProps) {
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "MusicGroup",
-              "name": "Endroll",
-              "alternateName": "エンドロール",
-              "url": "https://endroll.vercel.app",
-              "genre": ["ロック", "邦ロック", "JPOP", "Rock"],
-              "description": "ロックバンドEndrollの公式サイトです。",
-              "foundingDate": "2020",
-              "foundingLocation": {
+              name: "Endroll",
+              alternateName: "エンドロール",
+              url: "https://endroll.vercel.app",
+              genre: ["ロック", "邦ロック", "JPOP", "Rock"],
+              description: "ロックバンドEndrollの公式サイトです。",
+              foundingDate: "2020",
+              foundingLocation: {
                 "@type": "Place",
-                "name": "日本"
+                name: "日本",
               },
-              "member": [
+              member: [
                 {
                   "@type": "Person",
-                  "name": "ギタリスト",
-                  "roleName": "ギター"
+                  name: "ギタリスト",
+                  roleName: "ギター",
                 },
                 {
                   "@type": "Person",
-                  "name": "ベーシスト",
-                  "roleName": "ベース"
+                  name: "ベーシスト",
+                  roleName: "ベース",
                 },
                 {
                   "@type": "Person",
-                  "name": "ドラマー",
-                  "roleName": "ドラム"
-                }
+                  name: "ドラマー",
+                  roleName: "ドラム",
+                },
               ],
-              "sameAs": [
+              sameAs: [
                 "https://twitter.com/endroll_band",
                 "https://www.instagram.com/endroll_band",
                 "https://www.youtube.com/endroll_band",
-                "https://www.facebook.com/endroll_band"
+                "https://www.facebook.com/endroll_band",
               ],
-              "logo": {
+              logo: {
                 "@type": "ImageObject",
-                "url": "https://endroll.vercel.app/endroll.png"
-              }
+                url: "https://endroll.vercel.app/endroll.png",
+              },
             }),
           }}
         />
