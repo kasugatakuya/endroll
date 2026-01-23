@@ -81,7 +81,7 @@ export const LiveList: React.FC<LiveListProps> = ({
 
                   <div className="cinema-detail-item">
                     <span className="cinema-detail-label">販売状況</span>
-                    <span className="cinema-detail-value cinema-status">
+                    <span className="cinema-detail-value">
                       {typeof live["販売状況"] === "string"
                         ? live["販売状況"]
                         : ""}
@@ -89,6 +89,7 @@ export const LiveList: React.FC<LiveListProps> = ({
                   </div>
                 </div>
 
+                <span className="cinema-detail-label">詳細</span>
                 {live["説明"] && typeof live["説明"] === "string" && (
                   <div className="mt-4 cinema-description">
                     <p className="text-sm whitespace-pre-line">

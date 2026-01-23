@@ -31,8 +31,10 @@ export default function Footer() {
             </div>
           </Link>
           <Link
-            href="#"
+            href="https://www.instagram.com/endroll_band/"
             className="opacity-70 hover:opacity-100 transition-opacity p-2"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <div className="w-6 h-6 relative">
               <Image
