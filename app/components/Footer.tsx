@@ -59,8 +59,10 @@ export default function Footer() {
             </div>
           </Link>
           <Link
-            href="#"
+            href="https://youtu.be/QXioQBF0kx8"
             className="opacity-70 hover:opacity-100 transition-opacity p-2"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <div className="w-7 h-7 relative">
               <Image
