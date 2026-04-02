@@ -17,14 +17,16 @@ export default function Footer() {
         <div className="flex justify-center items-center gap-6">
           <Link
             href="#"
-            className="opacity-70 hover:opacity-100 transition-opacity p-2"
+            className="opacity-70 hover:opacity-100 transition-opacity pt-3 px-2"
             target="_blank"
             rel="noopener noreferrer"
           >
             <div className="w-12 h-12 relative">
               <Image
                 src="/x-icon.webp"
-                fill
+                width={48}
+                height={48}
+                style={{ width: "auto", height: "auto" }}
                 alt="X"
                 className="object-contain"
               />
@@ -39,7 +41,9 @@ export default function Footer() {
             <div className="w-6 h-6 relative">
               <Image
                 src="/instagram-img.webp"
-                fill
+                width={24}
+                height={24}
+                style={{ width: "auto", height: "auto" }}
                 alt="Instagram"
                 className="object-contain"
               />
@@ -52,7 +56,9 @@ export default function Footer() {
             <div className="w-9 h-9 relative">
               <Image
                 src="/facebook-icon.webp"
-                fill
+                width={36}
+                height={36}
+                style={{ width: "auto", height: "auto" }}
                 alt="Facebook"
                 className="object-contain"
               />
@@ -67,7 +73,9 @@ export default function Footer() {
             <div className="w-7 h-7 relative">
               <Image
                 src="/youtube.webp"
-                fill
+                width={28}
+                height={28}
+                style={{ width: "auto", height: "auto" }}
                 alt="YouTube"
                 className="object-contain rounded"
               />
