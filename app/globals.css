@@ -512,9 +512,9 @@ a {
 /* 座席エリア */
 .cinema-seating-area {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: 1fr;
   gap: 40px;
-  max-width: 1400px;
+  max-width: 100%;
   margin: 0 auto;
   perspective: 1000px;
 }
